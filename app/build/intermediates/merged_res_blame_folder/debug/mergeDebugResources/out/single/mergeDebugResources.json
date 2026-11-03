@@ -1,0 +1,174 @@
+[
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_consumption_analysis.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_consumption_analysis.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable-nodpi_ic_casa.png.flat",
+        "source": "com.example.afluente.app-main-56:/drawable-nodpi/ic_casa.png"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_fragment_perfil.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/fragment_perfil.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_onboarding_consumo.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_onboarding_consumo.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_historico.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_historico.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_progress_active.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/progress_active.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_relatorios.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_relatorios.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/color_report_toggle_text.xml.flat",
+        "source": "com.example.afluente.app-main-56:/color/report_toggle_text.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_ic_profile_camera.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/ic_profile_camera.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_registrar_consumo.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_registrar_consumo.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable-nodpi_ic_outro.png.flat",
+        "source": "com.example.afluente.app-main-56:/drawable-nodpi/ic_outro.png"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_chart_marker.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/chart_marker.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_onboarding_tarifas.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_onboarding_tarifas.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/color_consumption_toggle_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/color/consumption_toggle_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_onboarding_objetivo.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_onboarding_objetivo.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_start_button_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/start_button_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_dashboard.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_dashboard.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_chart_marker_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/chart_marker_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/menu_dashboard_navigation.xml.flat",
+        "source": "com.example.afluente.app-main-56:/menu/dashboard_navigation.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_comparar_periodos.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_comparar_periodos.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_onboarding_icon_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/onboarding_icon_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/color_report_toggle_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/color/report_toggle_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_ic_compare_dropdown.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/ic_compare_dropdown.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_welcome_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/welcome_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_profile_avatar.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/profile_avatar.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_notificacoes.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_notificacoes.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_compare_value_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/compare_value_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/color_dashboard_navigation_tint.xml.flat",
+        "source": "com.example.afluente.app-main-56:/color/dashboard_navigation_tint.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_item_notificacao.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/item_notificacao.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_item_compare_spinner.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/item_compare_spinner.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_brand_mark.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/brand_mark.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/color_consumption_toggle_text.xml.flat",
+        "source": "com.example.afluente.app-main-56:/color/consumption_toggle_text.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_progress_inactive.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/progress_inactive.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_compare_spinner_background.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/compare_spinner_background.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable-nodpi_ic_apartamento.png.flat",
+        "source": "com.example.afluente.app-main-56:/drawable-nodpi/ic_apartamento.png"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/drawable_profile_camera_badge.xml.flat",
+        "source": "com.example.afluente.app-main-56:/drawable/profile_camera_badge.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_main.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_metas_consumo.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_metas_consumo.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_fragment_dashboard.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/fragment_dashboard.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_perfil.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_perfil.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_item_historico.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/item_historico.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_fragment_relatorios.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/fragment_relatorios.xml"
+    },
+    {
+        "merged": "com.example.afluente.app-debug-54:/layout_activity_onboarding_residencia.xml.flat",
+        "source": "com.example.afluente.app-main-56:/layout/activity_onboarding_residencia.xml"
+    }
+]
