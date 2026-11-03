@@ -1,0 +1,7 @@
+<resources>
+    <!-- Android 12+: usa a marca AFLUENTE na tela inicial exibida pelo sistema. -->
+    <style name="Theme.Afluente.Launch" parent="Theme.Afluente">
+        <item name="android:windowSplashScreenBackground">@color/brand_gradient_middle</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_afluente_launcher</item>
+    </style>
+</resources>

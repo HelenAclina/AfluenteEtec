@@ -1,0 +1,11 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#2C4D7D" android:pathData="M0,0h108v108h-108z" />
+    <!-- A marca fica na área segura usada pelas máscaras de ícones do Android. -->
+    <group android:translateX="33" android:translateY="34">
+        <path android:fillColor="#FFFFFF" android:pathData="M16,1 L25,1 L37,26 C33,26 31,25 28,23 L21,8 L15,21 C12,21 10,22 7,24 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M6,27 C12,22 16,22 22,26 C28,30 33,30 40,26 L40,30 C33,34 27,34 21,30 C15,26 11,27 4,32 Z" />
+        <path android:fillColor="#FFFFFF" android:pathData="M3,35 C10,30 15,30 21,34 C27,38 33,38 40,34 L40,38 C33,41 27,41 21,38 C15,34 9,35 1,40 Z" />
+    </group>
+</vector>

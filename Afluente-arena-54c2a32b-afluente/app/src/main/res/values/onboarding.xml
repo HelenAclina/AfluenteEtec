@@ -1,0 +1,55 @@
+<resources>
+    <string name="residence_title">Sua residência</string>
+    <string name="residence_subtitle">Essas informações ajudam o Afluente a entender seu consumo.</string>
+    <string name="residents_question">Quantas pessoas moram na sua casa?</string>
+    <string name="residence_question">Qual é o tipo da sua residência?</string>
+    <string name="select_residents">Selecione quantas pessoas moram na residência.</string>
+    <string name="select_residence">Selecione o tipo de residência.</string>
+    <string name="step_three_pending">A próxima etapa do cadastro ainda será implementada.</string>
+    <string name="back">‹  Voltar</string>
+    <string name="step_two">2 de 5</string>
+    <string name="one_person">1 pessoa</string><string name="two_people">2 pessoas</string>
+    <string name="three_people">3 pessoas</string><string name="four_people">4 pessoas</string>
+    <string name="five_people">5 ou mais</string>
+    <string name="house">Casa</string><string name="apartment">Apartamento</string><string name="other">Outro</string>
+    <string name="continue_label">Continuar</string>
+    <string name="consumption_title">Conheça seu consumo</string>
+    <string name="consumption_subtitle">Você sabe seu consumo médio mensal?\nPreencha o que souber.</string>
+    <string name="step_three">3 de 5</string>
+    <string name="water">Água</string><string name="energy">Energia elétrica</string>
+    <string name="monthly_average">Consumo médio mensal</string>
+    <string name="water_hint">Ex: 12</string><string name="energy_hint">Ex: 180</string>
+    <string name="water_unit">m³/mês</string><string name="energy_unit">kWh/mês</string>
+    <string name="unknown_consumption">Não sei meu consumo ainda</string>
+    <string name="consumption_empty">Informe ao menos um consumo ou selecione que ainda não sabe.</string>
+    <string name="invalid_consumption">Informe um número válido, igual ou maior que zero.</string>
+    <string name="step_four_pending">A próxima etapa do cadastro ainda será implementada.</string>
+    <string name="step_four">4 de 5</string>
+    <string name="objectives_title">Qual é o seu objetivo?</string>
+    <string name="objectives_subtitle">Selecione um ou mais. Vamos personalizar sua experiência.</string>
+    <string name="goal_money">Economizar dinheiro</string>
+    <string name="goal_money_desc">Reduzir sua conta mensal de água e energia</string>
+    <string name="goal_consumption">Reduzir o consumo</string>
+    <string name="goal_consumption_desc">Diminuir o quanto usa por mês</string>
+    <string name="goal_waste">Evitar desperdícios</string>
+    <string name="goal_waste_desc">Identificar e eliminar gastos desnecessários</string>
+    <string name="goal_habits">Hábitos sustentáveis</string>
+    <string name="goal_habits_desc">Cuidar do planeta com escolhas conscientes</string>
+    <string name="select_goal">Selecione pelo menos um objetivo.</string>
+    <string name="step_five_pending">A próxima etapa do cadastro ainda será implementada.</string>
+    <string name="step_five">5 de 5</string>
+    <string name="tariffs_title">Configure suas tarifas</string>
+    <string name="tariffs_subtitle">Esses valores serão usados para estimar seus gastos mensais.</string>
+    <string name="water_tariff">Tarifa de água</string>
+    <string name="energy_tariff">Tarifa de energia</string>
+    <string name="water_tariff_subtitle">Valor cobrado pela concessionária</string>
+    <string name="energy_tariff_subtitle">Valor cobrado pela distribuidora</string>
+    <string name="currency_prefix">R$</string>
+    <string name="water_tariff_unit">/ m³</string>
+    <string name="energy_tariff_unit">/ kWh</string>
+    <string name="tariffs_info">💡  Você pode encontrar esses valores na sua conta de água ou energia.\n      Pode alterar depois em Perfil → Tarifas.</string>
+    <string name="finish_configuration">Concluir configuração</string>
+    <string name="skip_configuration">Pular e configurar depois</string>
+    <string name="invalid_tariff">Informe uma tarifa válida, maior que zero.</string>
+    <string name="finish_pending">Tarifas guardadas como rascunho. A conclusão do cadastro ainda será integrada.</string>
+</resources>

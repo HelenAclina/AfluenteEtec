@@ -1,0 +1,22 @@
+<resources>
+    <color name="onboarding_blue">#91BDF5</color>
+    <color name="brand_deep_blue">#1E3A68</color>
+    <color name="onboarding_background">#101822</color>
+    <color name="surface">#202C3B</color>
+    <color name="status_bar">#101822</color>
+    <color name="onboarding_border">#3D4D60</color>
+    <color name="onboarding_text">#F0F4FA</color>
+    <color name="onboarding_muted">#B7C5D8</color>
+    <color name="onboarding_selected">#294664</color>
+    <color name="water_accent">#7CB5F3</color>
+    <color name="water_background">#253E5D</color>
+    <color name="energy_background">#594627</color>
+    <color name="alert_red_background">#49272F</color><color name="alert_red_text">#FF9DA4</color><color name="alert_red_border">#79414A</color>
+    <color name="alert_yellow_background">#4C3D21</color><color name="alert_yellow_text">#FFD083</color>
+    <color name="alert_blue_background">#233C57</color><color name="alert_blue_text">#9CCBFF</color>
+    <color name="alert_green_background">#203D30</color><color name="alert_green_text">#A2DFB4</color>
+    <color name="compare_period_one">#719EDA</color>
+    <color name="compare_period_two">#B1CDF5</color>
+    <color name="residence_card_selected_border">#91BDF5</color>
+    <color name="chart_water">#91BDF5</color>
+</resources>
