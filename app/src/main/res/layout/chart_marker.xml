@@ -1,0 +1,1 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/tvChartMarker" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/chart_marker_background" android:textColor="@android:color/white" android:textSize="12sp" android:paddingHorizontal="10dp" android:paddingVertical="6dp" />

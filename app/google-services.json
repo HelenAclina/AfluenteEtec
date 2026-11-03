@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "661271962563",
+    "project_id": "afluente-29dd7",
+    "storage_bucket": "afluente-29dd7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661271962563:android:1b6721f74b0ee826111376",
+        "android_client_info": {
+          "package_name": "com.example.afluente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "661271962563-qsuul0ka44kjom3j4p4er7npu1h24i65.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.afluente",
+            "certificate_hash": "5177345d7ccab4f130710bc73b10271bc9116997"
+          }
+        },
+        {
+          "client_id": "661271962563-n5ap79jqpjqeg2l33dnk5dkcbq534st9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvtT7Cj9Jh75NKll2-l-LMrkitkDHDAn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661271962563-n5ap79jqpjqeg2l33dnk5dkcbq534st9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="screen_margin">24dp</dimen>
+    <dimen name="component_spacing">16dp</dimen>
+    <dimen name="card_radius">16dp</dimen>
+    <dimen name="input_radius">12dp</dimen>
+    <dimen name="primary_button_height">52dp</dimen>
+</resources>

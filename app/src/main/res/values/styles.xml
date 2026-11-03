@@ -1,0 +1,54 @@
+<resources>
+    <style name="Theme.Afluente" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/brand_gradient_bottom</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@drawable/welcome_background</item>
+    </style>
+    <style name="Afluente.Title" parent="android:style/Widget.TextView">
+        <item name="android:textSize">22sp</item><item name="android:textStyle">bold</item><item name="android:textColor">@color/onboarding_text</item>
+    </style>
+    <style name="Afluente.Subtitle" parent="android:style/Widget.TextView">
+        <item name="android:textSize">14sp</item><item name="android:textColor">@color/onboarding_muted</item>
+    </style>
+    <style name="Afluente.Step" parent="android:style/Widget.TextView">
+        <item name="android:textSize">13sp</item><item name="android:textColor">@color/onboarding_step_text</item>
+    </style>
+    <style name="Afluente.AvatarCircular" parent="ShapeAppearance.MaterialComponents"><item name="cornerFamily">rounded</item><item name="cornerSize">50%</item></style>
+    <style name="Afluente.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/surface</item><item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">0dp</item><item name="strokeWidth">1dp</item><item name="strokeColor">@color/onboarding_border</item>
+    </style>
+    <style name="Afluente.PrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/primary_button_height</item><item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item><item name="android:textColor">@android:color/white</item>
+        <item name="android:insetTop">0dp</item><item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/brand_deep_blue</item><item name="cornerRadius">@dimen/card_radius</item>
+    </style>
+    <style name="Afluente.Input" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/onboarding_background</item><item name="boxStrokeColor">@color/onboarding_border</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_radius</item><item name="boxCornerRadiusTopEnd">@dimen/input_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_radius</item><item name="boxCornerRadiusBottomEnd">@dimen/input_radius</item>
+    </style>
+    <style name="ResidenceOption" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">42dp</item>
+        <item name="android:textAllCaps">false</item><item name="android:textStyle">bold</item>
+        <item name="android:textSize">13sp</item><item name="android:insetTop">0dp</item><item name="android:insetBottom">0dp</item>
+        <item name="cornerRadius">@dimen/card_radius</item><item name="strokeWidth">1dp</item>
+    </style>
+    <style name="ResidenceCard" parent="Afluente.Card">
+        <item name="android:layout_width">0dp</item><item name="android:layout_height">82dp</item>
+        <item name="android:checkable">true</item><item name="android:clickable">true</item><item name="android:focusable">true</item>
+    </style>
+    <style name="DashboardMetricCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">#395782</item><item name="cardCornerRadius">16dp</item><item name="cardElevation">0dp</item>
+    </style>
+    <style name="DashboardMetricLabel" parent="android:style/Widget.TextView">
+        <item name="android:textColor">#C1CDDC</item><item name="android:textSize">12sp</item>
+    </style>
+    <style name="DashboardMetricValue" parent="android:style/Widget.TextView">
+        <item name="android:textColor">@android:color/white</item><item name="android:textSize">21sp</item><item name="android:textStyle">bold</item><item name="android:layout_marginTop">8dp</item>
+    </style>
+</resources>
