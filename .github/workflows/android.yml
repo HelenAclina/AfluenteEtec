@@ -30,6 +30,21 @@ jobs:
           chmod +x gradlew
           ./gradlew testDebugUnitTest assembleDebug --stacktrace
 
+      - name: Publicar capturas das telas (branch capturas-telas)
+        if: always() && github.event_name == 'push'
+        run: |
+          if [ -d app/build/telas ]; then
+            cp -r app/build/telas /tmp/telas
+            cd /tmp/telas
+            git init -q
+            git config user.name "github-actions"
+            git config user.email "github-actions@users.noreply.github.com"
+            git checkout -q -b capturas-telas
+            git add -A
+            git commit -q -m "Capturas de ${GITHUB_SHA}"
+            git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" capturas-telas
+          fi
+
       - name: Renomear o APK
         run: cp app/build/outputs/apk/debug/app-debug.apk AFLUENTE.apk
 
