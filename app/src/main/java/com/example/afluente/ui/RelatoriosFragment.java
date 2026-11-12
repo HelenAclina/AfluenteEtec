@@ -32,7 +32,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -72,12 +71,9 @@ public class RelatoriosFragment extends Fragment {
         DatabaseHelper helper = new DatabaseHelper(requireContext().getApplicationContext());
         RelatorioDAO dao = new RelatorioDAO(helper);
         service = new RelatorioService(dao, new RelatorioAnualDAO(helper, dao));
-        MaterialButtonToggleGroup toggle = view.findViewById(R.id.toggleTipoRelatorio);
-        toggle.check(months == 12 ? R.id.btnTabAnual : R.id.btnTabMensal);
-        toggle.addOnButtonCheckedListener((group, id, checked) -> {
-            if (checked) { months = id == R.id.btnTabAnual ? 12 : 6; load(); }
-        });
-        view.findViewById(R.id.btnVoltar).setOnClickListener(v -> requireActivity().finish());
+        view.findViewById(R.id.tabMensal).setOnClickListener(v -> selectPeriod(6));
+        view.findViewById(R.id.tabAnual).setOnClickListener(v -> selectPeriod(12));
+        styleTabs();
         view.findViewById(R.id.btnExportar).setEnabled(false);
         view.findViewById(R.id.btnExportar).setOnClickListener(v -> export());
         BottomNavigationView nav = view.findViewById(R.id.bottomNavigation);
@@ -103,6 +99,25 @@ public class RelatoriosFragment extends Fragment {
     private void setReportVisible(boolean visible) {
         int[] ids = {R.id.gridPicos, R.id.cardLinha, R.id.cardLinhaEnergia, R.id.cardBarras, R.id.cardResumoPeriodo};
         for (int id : ids) root.findViewById(id).setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    private void selectPeriod(int value) {
+        if (months == value) return;
+        months = value;
+        styleTabs();
+        load();
+    }
+
+    private void styleTabs() {
+        if (root == null) return;
+        styleTab(text(R.id.tabMensal), months != 12);
+        styleTab(text(R.id.tabAnual), months == 12);
+    }
+
+    private void styleTab(TextView tab, boolean selected) {
+        tab.setBackgroundResource(selected ? R.drawable.segment_selected : 0);
+        tab.setTextColor(selected ? ContextCompat.getColor(requireContext(), R.color.brand_deep_blue) : android.graphics.Color.WHITE);
+        tab.setSelected(selected);
     }
 
     private void render(RelatorioDAO.Resultado data) {
