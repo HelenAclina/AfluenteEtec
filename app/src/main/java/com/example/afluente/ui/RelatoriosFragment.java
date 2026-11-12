@@ -86,7 +86,7 @@ public class RelatoriosFragment extends Fragment {
             if (item.getItemId() == R.id.nav_relatorios) return true;
             if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(requireContext(), PerfilActivity.class)); return false; }
             if (item.getItemId() == R.id.nav_inicio) { requireActivity().finish(); return false; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), RegistrarConsumoActivity.class)); return false; }
+            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), ConsumptionAnalysisActivity.class)); return false; }
             Toast.makeText(requireContext(), "Esta funcionalidade ainda será implementada.", Toast.LENGTH_SHORT).show();
             return false;
         });

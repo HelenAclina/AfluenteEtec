@@ -121,7 +121,7 @@ public class PerfilFragment extends Fragment {
         nav.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_perfil) return true;
             if (item.getItemId() == R.id.nav_inicio) { requireActivity().finish(); return false; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), RegistrarConsumoActivity.class)); return false; }
+            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), ConsumptionAnalysisActivity.class)); return false; }
             if (item.getItemId() == R.id.nav_relatorios) { startActivity(new Intent(requireContext(), RelatoriosActivity.class)); return false; }
             return false;
         });

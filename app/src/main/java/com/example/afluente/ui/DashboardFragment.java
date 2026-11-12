@@ -97,7 +97,7 @@ public class DashboardFragment extends Fragment {
         navigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.nav_inicio) return true;
             if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(requireContext(), PerfilActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_consumo) { openConsumption(); return false; }
+            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), ConsumptionAnalysisActivity.class)); return false; }
             if (item.getItemId() == R.id.nav_relatorios) { startActivity(new Intent(requireContext(), RelatoriosActivity.class)); return false; }
             pending();
             return false;

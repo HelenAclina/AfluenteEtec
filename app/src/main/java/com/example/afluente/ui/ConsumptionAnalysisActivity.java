@@ -33,27 +33,25 @@ public class ConsumptionAnalysisActivity extends AppCompatActivity {
     private boolean energy;
     private String unit;
     private DashboardService service;
+    private DashboardDAO.Snapshot last;
     private final Locale locale = new Locale("pt", "BR");
 
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_consumption_analysis);
         EdgeInsets.aplicar(this);
-        energy = getIntent().getBooleanExtra(EXTRA_ENERGY, false);
-        unit = energy ? "kWh" : "m³";
-        text(R.id.tvRecursoTitulo).setText(energy ? "⚡ Energia elétrica" : "💧 Água");
-        text(R.id.tvTituloGrafico).setText("Evolução mensal (" + unit + ")");
+        energy = state != null ? state.getBoolean(EXTRA_ENERGY, false) : getIntent().getBooleanExtra(EXTRA_ENERGY, false);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) { finish(); return; }
-        findViewById(R.id.btnVoltar).setOnClickListener(v -> finish());
+        findViewById(R.id.tabAgua).setOnClickListener(v -> selectResource(false));
+        findViewById(R.id.tabEnergia).setOnClickListener(v -> selectResource(true));
+        updateHeader();
         BottomNavigationView nav = findViewById(R.id.bottomNavigation);
+        nav.setSelectedItemId(R.id.nav_consumo);
         nav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_inicio) { finish(); return true; }
+            if (item.getItemId() == R.id.nav_consumo) return true;
+            if (item.getItemId() == R.id.nav_inicio) { finish(); return false; }
             if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(this, PerfilActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_consumo) {
-                startActivity(new Intent(this, RegistrarConsumoActivity.class));
-                return false;
-            }
             if (item.getItemId() == R.id.nav_relatorios) {
                 startActivity(new Intent(this, RelatoriosActivity.class));
                 return false;
@@ -61,9 +59,6 @@ public class ConsumptionAnalysisActivity extends AppCompatActivity {
             Toast.makeText(this, "Esta funcionalidade ainda será implementada.", Toast.LENGTH_SHORT).show();
             return false;
         });
-        BarChart chart = findViewById(R.id.chartConsumo);
-        chart.setNoDataText(energy ? "Nenhum consumo de energia registrado." : "Nenhum consumo de água registrado.");
-        chart.setNoDataTextColor(ContextCompat.getColor(this, R.color.onboarding_muted));
         DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
         service = new DashboardService(new DashboardDAO(helper));
     }
@@ -73,9 +68,40 @@ public class ConsumptionAnalysisActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (service == null || user == null) return;
         service.load(user.getUid(), new DashboardService.Callback() {
-            @Override public void onSuccess(DashboardDAO.Snapshot data) { render(data); }
+            @Override public void onSuccess(DashboardDAO.Snapshot data) { last = data; render(data); }
             @Override public void onError() { Toast.makeText(ConsumptionAnalysisActivity.this, "Não foi possível carregar os dados.", Toast.LENGTH_LONG).show(); }
         });
+    }
+
+    /** Troca entre água e energia sem nova consulta: os dois recursos já vêm no mesmo resumo. */
+    private void selectResource(boolean showEnergy) {
+        if (energy == showEnergy) return;
+        energy = showEnergy;
+        updateHeader();
+        if (last != null) render(last);
+    }
+
+    private void updateHeader() {
+        unit = energy ? "kWh" : "m³";
+        text(R.id.tvRecursoTitulo).setText(energy ? "⚡ Energia elétrica" : "💧 Água");
+        text(R.id.tvTituloGrafico).setText("Evolução mensal (" + unit + ")");
+        TextView water = text(R.id.tabAgua), power = text(R.id.tabEnergia);
+        styleTab(water, !energy);
+        styleTab(power, energy);
+        BarChart chart = findViewById(R.id.chartConsumo);
+        chart.setNoDataText(energy ? "Nenhum consumo de energia registrado." : "Nenhum consumo de água registrado.");
+        chart.setNoDataTextColor(ContextCompat.getColor(this, R.color.onboarding_muted));
+    }
+
+    private void styleTab(TextView tab, boolean selected) {
+        tab.setBackgroundResource(selected ? R.drawable.segment_selected : 0);
+        tab.setTextColor(selected ? ContextCompat.getColor(this, R.color.brand_deep_blue) : android.graphics.Color.WHITE);
+        tab.setSelected(selected);
+    }
+
+    @Override protected void onSaveInstanceState(Bundle state) {
+        state.putBoolean(EXTRA_ENERGY, energy);
+        super.onSaveInstanceState(state);
     }
 
     private void render(DashboardDAO.Snapshot d) {
