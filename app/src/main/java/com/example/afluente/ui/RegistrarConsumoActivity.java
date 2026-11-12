@@ -60,6 +60,8 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
         toggle.addOnButtonCheckedListener((group, id, checked) -> { if (checked) updateResource(id); });
         updateResource(toggle.getCheckedButtonId());
         findViewById(R.id.btnSalvarRegistro).setOnClickListener(v -> save());
+        // Novo registro já começa com a data de hoje.
+        if (editId <= 0 && state == null) dateField.setText(new SimpleDateFormat(DISPLAY, Locale.ROOT).format(new Date()));
         if (editId > 0) {
             ((TextView) findViewById(R.id.tvTituloRegistro)).setText("Editar consumo");
             ((TextView) findViewById(R.id.btnSalvarRegistro)).setText("Salvar alterações");
@@ -80,7 +82,7 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
                     if (record == null) { Toast.makeText(this, "Registro não encontrado.", Toast.LENGTH_LONG).show(); finish(); return; }
                     toggle.check("ENERGIA".equals(record.tipo) ? R.id.btnTabEnergia : R.id.btnTabAgua);
                     updateResource(toggle.getCheckedButtonId());
-                    dateField.setText(record.data);
+                    dateField.setText(toDisplay(record.data));
                     amountField.setText(BigDecimal.valueOf(record.valor).stripTrailingZeros().toPlainString().replace('.', ','));
                     noteField.setText(record.observacao == null ? "" : record.observacao);
                     recordLoaded = true;
@@ -100,10 +102,10 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
 
     private void pickDate() {
         Calendar calendar = Calendar.getInstance();
-        Date selected = parseDate(text(dateField));
+        Date selected = parseDate(toIso(text(dateField)));
         if (selected != null) calendar.setTime(selected);
         DatePickerDialog dialog = new DatePickerDialog(this, (picker, year, month, day) -> {
-            dateField.setText(String.format(Locale.ROOT, "%04d-%02d-%02d", year, month + 1, day));
+            dateField.setText(String.format(Locale.ROOT, "%02d/%02d/%04d", day, month + 1, year));
             dateLayout.setError(null);
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         // Leituras futuras sumiriam do painel; o calendário não permite escolhê-las.
@@ -113,7 +115,8 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
 
     private void save() {
         if (busy) return;
-        String date = text(dateField);
+        // O campo mostra DD/MM/AAAA; o banco guarda AAAA-MM-DD.
+        String date = toIso(text(dateField));
         String raw = text(amountField);
         dateLayout.setError(null);
         amountLayout.setError(null);
@@ -166,6 +169,18 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
             setBusy(false);
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         });
+    }
+
+    private static final String DISPLAY = "dd/MM/yyyy";
+
+    private static String toIso(String display) {
+        if (!display.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")) return display;
+        return display.substring(6) + "-" + display.substring(3, 5) + "-" + display.substring(0, 2);
+    }
+
+    private static String toDisplay(String iso) {
+        if (iso == null || !iso.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) return iso;
+        return iso.substring(8) + "/" + iso.substring(5, 7) + "/" + iso.substring(0, 4);
     }
 
     private Date parseDate(String value) {

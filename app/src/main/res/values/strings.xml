@@ -24,7 +24,7 @@
     <string name="register_consumption">Registrar consumo</string>
     <string name="register_subtitle">Adicione seu consumo diário</string>
     <string name="register_date">DATA</string>
-    <string name="register_date_hint">AAAA-MM-DD</string>
+    <string name="register_date_hint">DD/MM/AAAA</string>
     <string name="register_date_accessible">Selecione a data do registro</string>
     <string name="register_water_label">CONSUMO (M³)</string>
     <string name="register_energy_label">CONSUMO (KWH)</string>
