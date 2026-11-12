@@ -37,6 +37,7 @@ public class OnboardingStep5Activity extends AppCompatActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_tarifas);
+        EdgeInsets.aplicar(this);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.onboarding_background));
         draft = getSharedPreferences(OnboardingStep4Activity.DRAFT_PREFERENCES, MODE_PRIVATE);
         water = findViewById(R.id.etTarifaAgua);

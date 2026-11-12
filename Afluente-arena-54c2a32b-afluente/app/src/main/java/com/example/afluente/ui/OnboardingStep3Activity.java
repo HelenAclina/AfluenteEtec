@@ -26,6 +26,7 @@ public class OnboardingStep3Activity extends AppCompatActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_consumo);
+        EdgeInsets.aplicar(this);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.onboarding_background));
         water = findViewById(R.id.etConsumoAgua);
         energy = findViewById(R.id.etConsumoEnergia);

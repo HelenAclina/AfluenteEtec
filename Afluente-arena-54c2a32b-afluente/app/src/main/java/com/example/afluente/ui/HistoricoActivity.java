@@ -35,6 +35,7 @@ public class HistoricoActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_historico);
+        EdgeInsets.aplicar(this);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) { finish(); return; }
         uid = user.getUid();

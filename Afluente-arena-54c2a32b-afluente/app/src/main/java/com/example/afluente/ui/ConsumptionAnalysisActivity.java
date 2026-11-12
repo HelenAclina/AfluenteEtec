@@ -38,6 +38,7 @@ public class ConsumptionAnalysisActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_consumption_analysis);
+        EdgeInsets.aplicar(this);
         energy = getIntent().getBooleanExtra(EXTRA_ENERGY, false);
         unit = energy ? "kWh" : "m³";
         text(R.id.tvRecursoTitulo).setText(energy ? "⚡ Energia elétrica" : "💧 Água");

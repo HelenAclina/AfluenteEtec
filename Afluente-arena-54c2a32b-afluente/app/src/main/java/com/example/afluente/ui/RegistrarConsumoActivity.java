@@ -1,5 +1,7 @@
 package com.example.afluente.ui;
 
+import com.example.afluente.service.ConsumoService;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +44,7 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_registrar_consumo);
+        EdgeInsets.aplicar(this);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) { finish(); return; }
         uid = user.getUid();
@@ -99,10 +102,13 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         Date selected = parseDate(text(dateField));
         if (selected != null) calendar.setTime(selected);
-        new DatePickerDialog(this, (picker, year, month, day) -> {
+        DatePickerDialog dialog = new DatePickerDialog(this, (picker, year, month, day) -> {
             dateField.setText(String.format(Locale.ROOT, "%04d-%02d-%02d", year, month + 1, day));
             dateLayout.setError(null);
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        // Leituras futuras sumiriam do painel; o calendário não permite escolhê-las.
+        dialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        dialog.show();
     }
 
     private void save() {
@@ -115,6 +121,10 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
             dateLayout.setError("Selecione uma data válida.");
             return;
         }
+        if (ConsumoService.dataFutura(date)) {
+            dateLayout.setError("A data não pode ser posterior a hoje.");
+            return;
+        }
         BigDecimal value;
         try {
             if (!raw.matches("[0-9]+([.,][0-9]+)?")) throw new NumberFormatException();
@@ -122,6 +132,10 @@ public class RegistrarConsumoActivity extends AppCompatActivity {
             if (value.signum() <= 0 || !Double.isFinite(value.doubleValue())) throw new NumberFormatException();
         } catch (NumberFormatException e) {
             amountLayout.setError("Informe um valor válido maior que zero.");
+            return;
+        }
+        if (value.compareTo(ConsumoService.CONSUMO_MAXIMO) > 0) {
+            amountLayout.setError("Informe um valor de até 1.000.000.");
             return;
         }
         String type = toggle.getCheckedButtonId() == R.id.btnTabEnergia ? "ENERGIA" : "AGUA";

@@ -20,6 +20,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_dashboard);
+        EdgeInsets.aplicar(this);
         if (state == null) getSupportFragmentManager().beginTransaction()
                 .replace(R.id.dashboard_container, new DashboardFragment()).commit();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

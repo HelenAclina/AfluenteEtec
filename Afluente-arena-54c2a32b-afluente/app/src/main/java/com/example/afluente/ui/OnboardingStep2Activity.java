@@ -30,6 +30,7 @@ public class OnboardingStep2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboarding_residencia);
+        EdgeInsets.aplicar(this);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.onboarding_background));
         Bundle state = savedInstanceState != null ? savedInstanceState : getIntent().getExtras();
         if (state != null) {

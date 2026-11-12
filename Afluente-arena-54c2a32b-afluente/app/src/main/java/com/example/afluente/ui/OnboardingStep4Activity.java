@@ -31,6 +31,7 @@ public class OnboardingStep4Activity extends AppCompatActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_onboarding_objetivo);
+        EdgeInsets.aplicar(this);
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.onboarding_background));
         draft = getSharedPreferences(DRAFT_PREFERENCES, MODE_PRIVATE);
         selected.addAll(draft.getStringSet(KEY_OBJECTIVES, new HashSet<>()));

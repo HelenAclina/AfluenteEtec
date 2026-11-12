@@ -24,10 +24,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.example.afluente.data.ConfiguracaoUsuarioDAO;
+import com.example.afluente.data.DatabaseHelper;
+import com.example.afluente.ui.EdgeInsets;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_OPEN_LOGIN = "open_login";
     private static final int BLUE = Color.rgb(30, 58, 104);
+    private static final ExecutorService PROFILE_EXECUTOR = Executors.newSingleThreadExecutor();
     private String screen = "welcome";
     private boolean busy;
     private EditText email;
@@ -43,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+        if (current != null && !getIntent().getBooleanExtra(EXTRA_OPEN_LOGIN, false)) {
+            // Sessão ativa: entra direto no painel, sem pedir login de novo.
+            openDashboard(current);
+            return;
+        }
         if (getIntent().getBooleanExtra(EXTRA_OPEN_LOGIN, false)) showLogin();
         else showWelcome();
     }
@@ -51,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         screen = "welcome";
         getWindow().setNavigationBarColor(Color.rgb(82, 125, 183));
         setContentView(R.layout.activity_main);
+        EdgeInsets.aplicar(this);
         androidx.appcompat.widget.AppCompatButton start = findViewById(R.id.start_button);
         // O tema Material pode aplicar a cor padrão roxa por tint; preserve o fundo branco.
         start.setSupportBackgroundTintList(null);
@@ -126,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         create.setOnClickListener(v -> showSignUp());
         addWithMargins(form, create, 52, 18, 0);
         setContentView(scroll);
+        EdgeInsets.aplicar(this);
     }
 
     private void showSignUp() {
@@ -230,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         enter.setOnClickListener(v -> showLogin());
         form.addView(enter, new LinearLayout.LayoutParams(-1, -2));
         setContentView(scroll);
+        EdgeInsets.aplicar(this);
     }
 
     private void showResidence() {
@@ -266,14 +282,42 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setEnabled(false);
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email.getText().toString().trim(), secret)
                 .addOnCompleteListener(this, task -> {
-                    busy = false;
-                    loginButton.setEnabled(true);
-                    if (task.isSuccessful()) {
-                        startActivity(new Intent(this, DashboardActivity.class));
+                    if (task.isSuccessful() && task.getResult() != null && task.getResult().getUser() != null) {
+                        openDashboard(task.getResult().getUser());
                     } else {
+                        busy = false;
+                        loginButton.setEnabled(true);
                         toast("Não foi possível entrar. Confira seus dados e sua conexão.");
                     }
                 });
+    }
+
+    /**
+     * Garante o perfil local da conta (aparelho novo ou reinstalação) e abre o painel
+     * limpando a pilha, para que o botão voltar não retorne à tela de login.
+     */
+    private void openDashboard(FirebaseUser user) {
+        busy = true;
+        String name = user.getDisplayName();
+        if ((name == null || name.trim().isEmpty()) && user.getEmail() != null) name = user.getEmail().split("@")[0];
+        final String uid = user.getUid(), localName = name;
+        final android.content.Context app = getApplicationContext();
+        PROFILE_EXECUTOR.execute(() -> {
+            DatabaseHelper helper = new DatabaseHelper(app);
+            boolean ok = true;
+            try { new ConfiguracaoUsuarioDAO(helper).garantirPerfil(uid, localName); }
+            catch (RuntimeException e) { ok = false; }
+            finally { helper.close(); }
+            final boolean profileReady = ok;
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                if (!profileReady) toast("Não foi possível preparar os dados locais deste aparelho.");
+                Intent dashboard = new Intent(this, DashboardActivity.class);
+                dashboard.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(dashboard);
+                finish();
+            });
+        });
     }
 
     private void resetPassword() {

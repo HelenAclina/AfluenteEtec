@@ -306,13 +306,13 @@ public class PerfilFragment extends Fragment {
         field.setKeyListener(android.text.method.DigitsKeyListener.getInstance("0123456789.,"));
         field.setSingleLine(true);
         Double existing = water ? perfil.tarifaAgua : perfil.tarifaEnergia;
-        if (existing != null) field.setText(String.format(locale, "%.2f", existing));
+        if (existing != null) field.setText(BigDecimal.valueOf(existing).stripTrailingZeros().toPlainString().replace('.', ','));
         android.widget.FrameLayout wrap = new android.widget.FrameLayout(requireContext());
         int horizontal = (int) (24 * getResources().getDisplayMetrics().density + 0.5f);
         wrap.setPadding(horizontal, 0, horizontal, 0); wrap.addView(field);
         AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(water ? "Tarifa de água (R$/m³)" : "Tarifa de energia (R$/kWh)")
-                .setMessage("A nova tarifa será usada nos próximos registros; valores históricos não serão alterados.")
+                .setMessage("A nova tarifa será usada nos próximos registros e nas estimativas do painel. Os custos já gravados nos registros e nos relatórios não serão alterados.")
                 .setView(wrap).setNegativeButton("Cancelar", null).setPositiveButton("Salvar", null).create();
         dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             String raw = field.getText().toString().trim();

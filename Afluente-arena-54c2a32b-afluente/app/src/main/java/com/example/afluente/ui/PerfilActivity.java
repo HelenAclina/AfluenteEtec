@@ -8,6 +8,7 @@ public class PerfilActivity extends AppCompatActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_perfil);
+        EdgeInsets.aplicar(this);
         if (state == null) getSupportFragmentManager().beginTransaction().replace(R.id.perfilContainer, new PerfilFragment()).commit();
     }
 }

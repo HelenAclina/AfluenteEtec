@@ -46,13 +46,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
-    // NOVO: login (Firebase + Google)
+    // Autenticação por e-mail e senha (Firebase Authentication)
     implementation(platform("com.google.firebase:firebase-bom:35.0.0"))
     implementation("com.google.firebase:firebase-auth")
-    implementation("androidx.credentials:credentials:1.3.0")
-    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
-    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
-    // NOVO: banco de dados local (SQLite) com Room
-    implementation("androidx.room:room-runtime:2.8.5")
-    annotationProcessor("androidx.room:room-compiler:2.8.5")
 }

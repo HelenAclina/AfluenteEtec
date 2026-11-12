@@ -15,3 +15,15 @@
 - Não há sincronização de consumos e alertas entre aparelhos. `REAL` é representação binária: não equivale a armazenamento monetário integral em centavos; o arredondamento por lançamento é preservado para compatibilidade. Para grandes volumes, recomenda-se avaliar paginação do histórico e uma migração monetária específica.
 - A validação disponível neste ambiente inclui análise sintática Java/XML e verificações SQLite independentes. **Não há JDK/Android SDK aqui**, portanto não foi possível compilar, executar os testes instrumentados ou verificar gráficos e lifecycle em dispositivo. Os testes em `app/src/androidTest/.../ConsumoIntegridadeTest.java` usam um banco isolado; execute-os no Android Studio ou com `connectedAndroidTest` em emulador/aparelho.
 - O limite de UC19 é uma regra fixa no código, não uma preferência configurável. Não foi feita auditoria de segurança completa nem testes de carga; esta revisão não garante ausência de erros em todos os cenários.
+
+## Correções de 12/11/2026 (após a revisão de 10/11/2026)
+
+- **Conta existente sem dados locais:** após o login, e também quando há sessão ativa, `ConfiguracaoUsuarioDAO.garantirPerfil` cria o perfil local mínimo (usuário e configuração) sem sobrescrever dados existentes. Resolve o erro "Perfil local não encontrado" em aparelho novo ou após reinstalação.
+- **Login automático e pilha de telas:** com sessão ativa, o app abre direto no painel; após o login, a pilha é limpa e o botão voltar não retorna mais à tela de login.
+- **Botão voltar no Android 16:** `android:enableOnBackInvokedCallback="false"` no manifest mantém o `onBackPressed` funcionando. A migração para `OnBackPressedCallback` fica como melhoria futura.
+- **Bordas da tela (Android 15+):** a classe `EdgeInsets` aplica as margens das barras do sistema e do teclado ao conteúdo de todas as telas.
+- **Validação de consumo:** datas futuras são recusadas (no calendário e no `ConsumoService`), e o valor de um lançamento fica limitado a 1.000.000.
+- **Tarifa:** a edição mostra o valor completo (ex.: 0,894), e o texto explica que o painel usa a tarifa atual, enquanto registros e relatórios mantêm o custo gravado.
+- **Projeto:** removidas as dependências sem uso (Room, Credential Manager, googleid); incluído `.gitignore`; `ExampleUnitTest` movido para `src/test`; novo `ConsumoServiceTest` com 6 testes locais.
+
+Pendente de verificação em aparelho: compilar no Android Studio e executar o roteiro de testes (A a J) da revisão de 10/11/2026.
