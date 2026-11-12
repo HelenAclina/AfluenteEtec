@@ -94,14 +94,7 @@ public class DashboardFragment extends Fragment {
         view.findViewById(R.id.atalhoComparar).setOnClickListener(v -> startActivity(new Intent(requireContext(), CompararPeriodosActivity.class)));
         view.findViewById(R.id.btnVerMetas).setOnClickListener(v -> startActivity(new Intent(requireContext(), MetasConsumoActivity.class)));
         BottomNavigationView navigation = view.findViewById(R.id.bottomNavigation);
-        navigation.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_inicio) return true;
-            if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(requireContext(), PerfilActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), ConsumptionAnalysisActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_relatorios) { startActivity(new Intent(requireContext(), RelatoriosActivity.class)); return false; }
-            pending();
-            return false;
-        });
+        navigation.setOnItemSelectedListener(item -> Navegacao.abrir(requireActivity(), item.getItemId()));
         LineChart chart = view.findViewById(R.id.chartEvolucaoMensal);
         chart.setNoDataText("Nenhum consumo registrado ainda.");
         chart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.onboarding_muted));

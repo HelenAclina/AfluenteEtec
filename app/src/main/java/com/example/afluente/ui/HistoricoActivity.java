@@ -55,13 +55,7 @@ public class HistoricoActivity extends AppCompatActivity {
         filter.addOnButtonCheckedListener((group, id, checked) -> { if (checked) load(); });
         findViewById(R.id.btnVoltar).setOnClickListener(v -> finish());
         BottomNavigationView nav = findViewById(R.id.bottomNavigation);
-        nav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_inicio) { finish(); return true; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(this, ConsumptionAnalysisActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_relatorios) { startActivity(new Intent(this, RelatoriosActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(this, PerfilActivity.class)); return false; }
-            return false;
-        });
+        nav.setOnItemSelectedListener(item -> Navegacao.abrir(this, item.getItemId()));
     }
 
     @Override protected void onResume() { super.onResume(); if (dao != null) load(); }

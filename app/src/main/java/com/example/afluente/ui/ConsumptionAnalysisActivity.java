@@ -48,17 +48,7 @@ public class ConsumptionAnalysisActivity extends AppCompatActivity {
         updateHeader();
         BottomNavigationView nav = findViewById(R.id.bottomNavigation);
         nav.setSelectedItemId(R.id.nav_consumo);
-        nav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_consumo) return true;
-            if (item.getItemId() == R.id.nav_inicio) { finish(); return false; }
-            if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(this, PerfilActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_relatorios) {
-                startActivity(new Intent(this, RelatoriosActivity.class));
-                return false;
-            }
-            Toast.makeText(this, "Esta funcionalidade ainda será implementada.", Toast.LENGTH_SHORT).show();
-            return false;
-        });
+        nav.setOnItemSelectedListener(item -> Navegacao.abrir(this, item.getItemId()));
         DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
         service = new DashboardService(new DashboardDAO(helper));
     }

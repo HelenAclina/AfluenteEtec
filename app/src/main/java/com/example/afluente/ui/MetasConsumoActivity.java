@@ -49,13 +49,7 @@ public class MetasConsumoActivity extends AppCompatActivity {
         bind("AGUA", R.id.btnDiminuirMetaAgua, R.id.btnAumentarMetaAgua, R.id.tvValorMetaAgua, 1);
         bind("ENERGIA", R.id.btnDiminuirMetaEnergia, R.id.btnAumentarMetaEnergia, R.id.tvValorMetaEnergia, 10);
         BottomNavigationView nav = findViewById(R.id.bottomNavigation);
-        nav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_inicio) { finish(); return true; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(this, ConsumptionAnalysisActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_relatorios) { startActivity(new Intent(this, RelatoriosActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(this, PerfilActivity.class)); return false; }
-            return false;
-        });
+        nav.setOnItemSelectedListener(item -> Navegacao.abrir(this, item.getItemId()));
         setBusy(true);
     }
     @Override protected void onResume() { super.onResume(); if (dao != null) load(); }

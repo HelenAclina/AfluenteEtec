@@ -82,14 +82,7 @@ public class RelatoriosFragment extends Fragment {
         view.findViewById(R.id.btnExportar).setOnClickListener(v -> export());
         BottomNavigationView nav = view.findViewById(R.id.bottomNavigation);
         nav.setSelectedItemId(R.id.nav_relatorios);
-        nav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_relatorios) return true;
-            if (item.getItemId() == R.id.nav_perfil) { startActivity(new Intent(requireContext(), PerfilActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_inicio) { requireActivity().finish(); return false; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), ConsumptionAnalysisActivity.class)); return false; }
-            Toast.makeText(requireContext(), "Esta funcionalidade ainda será implementada.", Toast.LENGTH_SHORT).show();
-            return false;
-        });
+        nav.setOnItemSelectedListener(item -> Navegacao.abrir(requireActivity(), item.getItemId()));
     }
 
     @Override public void onResume() { super.onResume(); if (service != null) load(); }

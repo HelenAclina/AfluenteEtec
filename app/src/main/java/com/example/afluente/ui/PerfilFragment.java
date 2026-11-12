@@ -118,13 +118,7 @@ public class PerfilFragment extends Fragment {
         });
         BottomNavigationView nav = view.findViewById(R.id.bottomNavigation);
         nav.setSelectedItemId(R.id.nav_perfil);
-        nav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_perfil) return true;
-            if (item.getItemId() == R.id.nav_inicio) { requireActivity().finish(); return false; }
-            if (item.getItemId() == R.id.nav_consumo) { startActivity(new Intent(requireContext(), ConsumptionAnalysisActivity.class)); return false; }
-            if (item.getItemId() == R.id.nav_relatorios) { startActivity(new Intent(requireContext(), RelatoriosActivity.class)); return false; }
-            return false;
-        });
+        nav.setOnItemSelectedListener(item -> Navegacao.abrir(requireActivity(), item.getItemId()));
         load();
     }
 
