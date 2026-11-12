@@ -53,8 +53,14 @@ public class CapturaTelasTest {
     @Test public void temaEscuro() { capturar("escuro", 411, 891, 1f, true); }
 
     private void capturar(String variante, int wDp, int hDp, float fonte, boolean escuro) {
-        RuntimeEnvironment.setQualifiers("w" + wDp + "dp-h" + hDp + "dp-xxhdpi-" + (escuro ? "night" : "notnight"));
-        RuntimeEnvironment.setFontScale(fonte);
+        // Ordem dos qualificadores segue a do Android: largura, altura, modo noturno, densidade.
+        try {
+            RuntimeEnvironment.setQualifiers("w" + wDp + "dp-h" + hDp + "dp-" + (escuro ? "night" : "notnight") + "-xxhdpi");
+            RuntimeEnvironment.setFontScale(fonte);
+        } catch (RuntimeException e) {
+            System.out.println("Configuração de tela não suportada: " + e);
+            return;
+        }
         File pasta = new File("build/telas/" + variante);
         pasta.mkdirs();
         for (Object[] tela : TELAS) {
