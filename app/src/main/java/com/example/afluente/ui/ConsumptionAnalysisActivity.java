@@ -1,0 +1,153 @@
+package com.example.afluente.ui;
+
+import android.os.Bundle;
+import android.content.Intent;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.example.afluente.R;
+import com.example.afluente.data.DashboardDAO;
+import com.example.afluente.data.DatabaseHelper;
+import com.example.afluente.service.DashboardService;
+import com.example.afluente.service.AlertaService;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Locale;
+
+/** Tela compartilhada por água e energia; apenas os dados e a cor mudam. */
+public class ConsumptionAnalysisActivity extends AppCompatActivity {
+    public static final String EXTRA_ENERGY = "energy";
+    private boolean energy;
+    private String unit;
+    private DashboardService service;
+    private DashboardDAO.Snapshot last;
+    private final Locale locale = new Locale("pt", "BR");
+
+    @Override protected void onCreate(Bundle state) {
+        super.onCreate(state);
+        setContentView(R.layout.activity_consumption_analysis);
+        EdgeInsets.aplicar(this);
+        energy = state != null ? state.getBoolean(EXTRA_ENERGY, false) : getIntent().getBooleanExtra(EXTRA_ENERGY, false);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) { finish(); return; }
+        findViewById(R.id.tabAgua).setOnClickListener(v -> selectResource(false));
+        findViewById(R.id.tabEnergia).setOnClickListener(v -> selectResource(true));
+        updateHeader();
+        BottomNavigationView nav = findViewById(R.id.bottomNavigation);
+        nav.setSelectedItemId(R.id.nav_consumo);
+        nav.setOnItemSelectedListener(item -> Navegacao.abrir(this, item.getItemId()));
+        DatabaseHelper helper = new DatabaseHelper(getApplicationContext());
+        service = new DashboardService(new DashboardDAO(helper));
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (service == null || user == null) return;
+        service.load(user.getUid(), new DashboardService.Callback() {
+            @Override public void onSuccess(DashboardDAO.Snapshot data) { last = data; render(data); }
+            @Override public void onError() { Toast.makeText(ConsumptionAnalysisActivity.this, "Não foi possível carregar os dados.", Toast.LENGTH_LONG).show(); }
+        });
+    }
+
+    /** Troca entre água e energia sem nova consulta: os dois recursos já vêm no mesmo resumo. */
+    private void selectResource(boolean showEnergy) {
+        if (energy == showEnergy) return;
+        energy = showEnergy;
+        updateHeader();
+        if (last != null) render(last);
+    }
+
+    private void updateHeader() {
+        unit = energy ? "kWh" : "m³";
+        text(R.id.tvRecursoTitulo).setText(energy ? "⚡ Energia elétrica" : "💧 Água");
+        text(R.id.tvTituloGrafico).setText("Evolução mensal (" + unit + ")");
+        TextView water = text(R.id.tabAgua), power = text(R.id.tabEnergia);
+        styleTab(water, !energy);
+        styleTab(power, energy);
+        BarChart chart = findViewById(R.id.chartConsumo);
+        chart.setNoDataText(energy ? "Nenhum consumo de energia registrado." : "Nenhum consumo de água registrado.");
+        chart.setNoDataTextColor(ContextCompat.getColor(this, R.color.onboarding_muted));
+    }
+
+    private void styleTab(TextView tab, boolean selected) {
+        tab.setBackgroundResource(selected ? R.drawable.segment_selected : 0);
+        tab.setTextColor(selected ? ContextCompat.getColor(this, R.color.brand_deep_blue) : android.graphics.Color.WHITE);
+        tab.setSelected(selected);
+    }
+
+    @Override protected void onSaveInstanceState(Bundle state) {
+        state.putBoolean(EXTRA_ENERGY, energy);
+        super.onSaveInstanceState(state);
+    }
+
+    private void render(DashboardDAO.Snapshot d) {
+        double[] values = energy ? d.energy : d.water;
+        boolean[] available = energy ? d.hasEnergy : d.hasWater;
+        Double tariff = energy ? d.energyTariff : d.waterTariff;
+        Double goal = energy ? d.energyGoal : d.waterGoal;
+        text(R.id.tvSituacao).setText(goal == null ? "Sem meta" : !available[5] ? "Sem registros" : AlertaService.excedeu(values[5], goal) ? "Elevado" : "Dentro da meta");
+        text(R.id.tvMesAtual).setText("Atual (" + d.months[5] + ")");
+        text(R.id.tvMesAnterior).setText("Anterior (" + d.months[4] + ")");
+        text(R.id.tvAtual).setText(available[5] ? number(values[5]) + " " + unit : "—");
+        text(R.id.tvAnterior).setText(available[4] ? number(values[4]) + " " + unit : "—");
+        text(R.id.tvVariacao).setText("Sem comparação");
+        if (available[5] && available[4] && values[4] > 0) {
+            double variation = (values[5] - values[4]) / values[4] * 100;
+            text(R.id.tvVariacao).setText(String.format(locale, "%s %.1f%%", variation >= 0 ? "↑" : "↓", Math.abs(variation)));
+        }
+        double total = 0; int count = 0;
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            if (available[i]) { total += values[i]; count++; entries.add(new BarEntry(i, (float) values[i], new ChartMarker.Value(values[i], unit))); }
+        }
+        // Médias mensais usam apenas meses com registros, não cada lançamento individual.
+        text(R.id.tvMedia).setText(count == 0 ? "—" : number(total / count) + " " + unit);
+        text(R.id.tvGastoLabel).setText("Gasto estimado (" + d.months[5] + ")");
+        double estimate = available[5] && tariff != null && Double.isFinite(tariff) && tariff > 0 ? values[5] * tariff : Double.NaN;
+        text(R.id.tvGasto).setText(Double.isFinite(estimate) ? NumberFormat.getCurrencyInstance(locale).format(estimate) : "—");
+        BarChart chart = findViewById(R.id.chartConsumo);
+        ChartMarker.attach(chart);
+        chart.getDescription().setEnabled(false);
+        chart.getLegend().setEnabled(false);
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setAxisMinimum(0f);
+        chart.getAxisLeft().setDrawGridLines(true);
+        chart.getAxisLeft().setTextColor(ContextCompat.getColor(this, R.color.onboarding_muted));
+        chart.getAxisLeft().setGridColor(ContextCompat.getColor(this, R.color.onboarding_border));
+        XAxis x = chart.getXAxis();
+        x.setTextColor(ContextCompat.getColor(this, R.color.onboarding_muted));
+        x.setPosition(XAxis.XAxisPosition.BOTTOM);
+        x.setValueFormatter(new IndexAxisValueFormatter(d.months));
+        x.setGranularity(1f); x.setAxisMinimum(-0.5f); x.setAxisMaximum(5.5f); x.setDrawGridLines(false);
+        if (entries.isEmpty()) chart.clear();
+        else {
+            BarDataSet set = new BarDataSet(entries, energy ? "Energia (kWh)" : "Água (m³)");
+            set.setColor(ContextCompat.getColor(this, energy ? R.color.energy_accent : R.color.chart_water));
+            set.setDrawValues(false);
+            BarData data = new BarData(set); data.setBarWidth(0.72f); chart.setData(data);
+        }
+        chart.invalidate();
+    }
+
+    private String number(double value) {
+        NumberFormat format = NumberFormat.getNumberInstance(locale);
+        format.setMaximumFractionDigits(2);
+        return format.format(value);
+    }
+    private TextView text(int id) { return findViewById(id); }
+    @Override protected void onDestroy() { if (service != null) service.close(); super.onDestroy(); }
+}

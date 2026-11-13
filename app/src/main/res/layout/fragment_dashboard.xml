@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/onboarding_background">
+    <androidx.core.widget.NestedScrollView android:id="@+id/dashboardScroll" android:clipToPadding="false" android:paddingBottom="88dp" android:layout_width="0dp" android:layout_height="0dp" android:fillViewport="true" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@id/bottomNavigation" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:id="@+id/headerDashboard" android:layout_width="0dp" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" android:background="@color/brand_deep_blue" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:id="@+id/tvSaudacaoUsuario" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Olá!" android:textSize="20sp" android:textStyle="bold" android:textColor="@android:color/white" />
+                    <FrameLayout android:id="@+id/avatarDashboard" android:layout_width="48dp" android:layout_height="48dp" android:clickable="true" android:focusable="true" android:contentDescription="Abrir perfil">
+                        <TextView android:id="@+id/tvAvatarDashboard" android:layout_width="40dp" android:layout_height="40dp" android:layout_gravity="center" android:gravity="center" android:background="@drawable/profile_avatar" android:text="?" android:textStyle="bold" android:textColor="@android:color/white" android:importantForAccessibility="no" />
+                        <com.google.android.material.imageview.ShapeableImageView android:id="@+id/imgFotoDashboard" android:layout_width="40dp" android:layout_height="40dp" android:layout_gravity="center" android:scaleType="centerCrop" android:visibility="gone" android:importantForAccessibility="no" app:shapeAppearanceOverlay="@style/Afluente.AvatarCircular" />
+                    </FrameLayout>
+                    <TextView android:id="@+id/tvAlertCount" android:layout_width="wrap_content" android:layout_height="48dp" android:gravity="center" android:paddingHorizontal="12dp" android:textColor="@android:color/white" android:contentDescription="Alertas não lidos" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:orientation="horizontal">
+                    <com.google.android.material.card.MaterialCardView android:id="@+id/cardAguaDashboard" android:clickable="true" android:focusable="true" android:contentDescription="Ver análise de água" style="@style/DashboardMetricCard" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+                            <TextView android:id="@+id/tvAguaMes" style="@style/DashboardMetricLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="💧 Água" />
+                            <TextView android:id="@+id/tvConsumoAgua" style="@style/DashboardMetricValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="— m³" />
+                            <TextView android:id="@+id/tvVariacaoAgua" style="@style/DashboardMetricLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sem comparação" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView android:id="@+id/cardEnergiaDashboard" android:clickable="true" android:focusable="true" android:contentDescription="Ver análise de energia" style="@style/DashboardMetricCard" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp">
+                            <TextView android:id="@+id/tvEnergiaMes" style="@style/DashboardMetricLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="⚡ Energia" />
+                            <TextView android:id="@+id/tvConsumoEnergia" style="@style/DashboardMetricValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="— kWh" />
+                            <TextView android:id="@+id/tvVariacaoEnergia" style="@style/DashboardMetricLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sem comparação" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView style="@style/DashboardMetricCard" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="14dp" android:orientation="vertical">
+                        <TextView style="@style/DashboardMetricLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Gasto estimado do mês" />
+                        <TextView android:id="@+id/tvGastoEstimado" style="@style/DashboardMetricValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="—" />
+                        <TextView android:id="@+id/tvComparacaoGasto" style="@style/DashboardMetricLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Cadastre consumos e tarifas para calcular" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView android:id="@+id/cardAlertaConsumo" style="@style/Afluente.Card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:layout_marginTop="16dp" android:visibility="gone" app:cardBackgroundColor="@color/alert_red_background" app:strokeColor="@color/alert_red_border" app:layout_constraintTop_toBottomOf="@id/headerDashboard" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:orientation="vertical">
+                    <TextView android:id="@+id/tvTituloAlerta" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/alert_red_text" android:textStyle="bold" />
+                    <TextView android:id="@+id/tvDescricaoAlerta" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/alert_red_text" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView android:id="@+id/cardGrafico" style="@style/Afluente.Card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:layout_marginTop="16dp" app:layout_goneMarginTop="16dp" app:layout_constraintTop_toBottomOf="@id/cardAlertaConsumo" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Evolução mensal" android:textColor="@color/onboarding_text" android:textStyle="bold" android:textSize="16sp" />
+                    <com.github.mikephil.charting.charts.LineChart android:id="@+id/chartEvolucaoMensal" android:layout_width="match_parent" android:layout_height="200dp" android:layout_marginTop="12dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView android:id="@+id/cardMetas" style="@style/Afluente.Card" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@id/cardGrafico" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/dashboard_goals" android:textColor="@color/onboarding_text" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnVerMetas" android:layout_width="wrap_content" android:layout_height="48dp" android:gravity="center" android:paddingHorizontal="8dp" android:clickable="true" android:focusable="true" android:text="@string/dashboard_view_goals" android:textColor="@color/onboarding_blue" android:textStyle="bold" android:textSize="12sp" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/dashboard_water" android:textColor="@color/onboarding_text" android:textSize="13sp" />
+                        <TextView android:id="@+id/tvMetaAgua" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/dashboard_no_goal" android:textColor="@color/onboarding_muted" android:textSize="12sp" />
+                    </LinearLayout>
+                    <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progressoMetaAgua" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:progress="0" app:trackThickness="7dp" app:trackCornerRadius="4dp" app:trackColor="@color/onboarding_border" app:indicatorColor="@color/water_accent" android:contentDescription="@string/dashboard_water_goal_unavailable" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/dashboard_energy" android:textColor="@color/onboarding_text" android:textSize="13sp" />
+                        <TextView android:id="@+id/tvMetaEnergia" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/dashboard_no_goal" android:textColor="@color/onboarding_muted" android:textSize="12sp" />
+                    </LinearLayout>
+                    <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progressoMetaEnergia" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:progress="0" app:trackThickness="7dp" app:trackCornerRadius="4dp" app:trackColor="@color/onboarding_border" app:indicatorColor="@color/energy_accent" android:contentDescription="@string/dashboard_energy_goal_unavailable" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <TextView android:id="@+id/tvAcessoRapido" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:layout_marginTop="20dp" android:text="@string/dashboard_quick_access" android:textColor="@color/onboarding_text" android:textStyle="bold" app:layout_constraintTop_toBottomOf="@id/cardMetas" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+            <LinearLayout android:id="@+id/acessosRapidos" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="20dp" android:layout_marginTop="12dp" android:layout_marginBottom="84dp" android:orientation="horizontal" app:layout_constraintTop_toBottomOf="@id/tvAcessoRapido" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent">
+                <com.google.android.material.card.MaterialCardView android:id="@+id/atalhoHistorico" style="@style/Afluente.Card" android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/dashboard_history">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:importantForAccessibility="noHideDescendants">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="@string/dashboard_history" android:textColor="@color/onboarding_muted" android:textSize="10sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView android:id="@+id/atalhoComparar" style="@style/Afluente.Card" android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/dashboard_compare" android:layout_marginStart="8dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:importantForAccessibility="noHideDescendants">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📊" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="@string/dashboard_compare" android:textColor="@color/onboarding_muted" android:textSize="10sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView android:id="@+id/atalhoAlertas" style="@style/Afluente.Card" android:layout_width="0dp" android:layout_height="80dp" android:layout_weight="1" android:clickable="true" android:focusable="true" android:contentDescription="@string/dashboard_alerts" android:layout_marginStart="8dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:importantForAccessibility="noHideDescendants">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔔" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="@string/dashboard_alerts" android:textColor="@color/onboarding_muted" android:textSize="10sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView android:id="@+id/bottomNavigation" android:layout_width="0dp" android:layout_height="wrap_content" android:background="@color/surface" app:menu="@menu/dashboard_navigation" app:labelVisibilityMode="labeled" app:itemHorizontalTranslationEnabled="false" app:itemIconTint="@color/dashboard_navigation_tint" app:itemTextColor="@color/dashboard_navigation_tint" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/fabAdicionarConsumo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="24dp" android:layout_marginBottom="12dp" android:contentDescription="Adicionar consumo" android:src="@android:drawable/ic_input_add" app:backgroundTint="@color/brand_deep_blue" app:tint="@android:color/white" app:layout_constraintBottom_toTopOf="@id/bottomNavigation" app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

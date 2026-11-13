@@ -1,0 +1,68 @@
+name: Build do aplicativo
+
+on:
+  push:
+    branches: [main, correcoes-revisao]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar o Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Configurar o Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Rodar os testes e gerar o APK
+        run: |
+          chmod +x gradlew
+          ./gradlew testDebugUnitTest assembleDebug --stacktrace
+
+      - name: Publicar capturas das telas (branch capturas-telas)
+        if: always() && github.event_name == 'push'
+        run: |
+          if [ -d app/build/telas ]; then
+            cp -r app/build/telas /tmp/telas
+            cd /tmp/telas
+            git init -q
+            git config user.name "github-actions"
+            git config user.email "github-actions@users.noreply.github.com"
+            git checkout -q -b capturas-telas
+            git add -A
+            git commit -q -m "Capturas de ${GITHUB_SHA}"
+            git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" capturas-telas
+          fi
+
+      - name: Renomear o APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk AFLUENTE.apk
+
+      - name: Guardar o APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AFLUENTE-apk
+          path: AFLUENTE.apk
+
+      - name: Publicar o APK para download
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-${{ github.ref_name }}
+          name: AFLUENTE – versão para instalar (${{ github.ref_name }})
+          prerelease: true
+          make_latest: false
+          body: |
+            APK gerado automaticamente a partir da branch `${{ github.ref_name }}` (commit ${{ github.sha }}).
+            Para instalar: baixe o arquivo AFLUENTE.apk no celular Android e abra-o (permita a instalação de fontes desconhecidas, se o Android pedir).
+          files: AFLUENTE.apk

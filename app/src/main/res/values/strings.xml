@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Afluente</string>
+    <string name="brand_name">AFLUENTE</string>
+    <string name="brand_wordmark">FLUENTE</string>
+    <string name="brand_tagline">CONSUMO INTELIGENTE</string>
+    <string name="start">Começar</string>
+    <string name="footer">Tecnologia sustentável para um futuro melhor</string>
+    <string name="next_screen_pending">A próxima tela ainda será implementada.</string>
+    <string name="dashboard_goals">Metas do mês</string>
+    <string name="dashboard_view_goals">Ver todas</string>
+    <string name="dashboard_water">💧 Água</string>
+    <string name="dashboard_energy">⚡ Energia</string>
+    <string name="dashboard_no_goal">Sem meta cadastrada</string>
+    <string name="dashboard_water_goal_unavailable">Meta de água não configurada</string>
+    <string name="dashboard_energy_goal_unavailable">Meta de energia não configurada</string>
+    <string name="dashboard_quick_access">Acesso rápido</string>
+    <string name="dashboard_history">Histórico</string>
+    <string name="dashboard_compare">Comparar</string>
+    <string name="dashboard_alerts">Alertas</string>
+    <string name="alerts_title">Alertas</string>
+    <string name="alerts_empty">Você ainda não tem notificações.</string>
+    <string name="alerts_error">Não foi possível carregar as notificações.</string>
+    <plurals name="alerts_count"><item quantity="one">%d notificação</item><item quantity="other">%d notificações</item></plurals>
+    <string name="register_consumption">Registrar consumo</string>
+    <string name="register_subtitle">Adicione seu consumo diário</string>
+    <string name="register_date">DATA</string>
+    <string name="register_date_hint">DD/MM/AAAA</string>
+    <string name="register_date_accessible">Selecione a data do registro</string>
+    <string name="register_water_label">CONSUMO (M³)</string>
+    <string name="register_energy_label">CONSUMO (KWH)</string>
+    <string name="register_water_hint">Ex: 2,5</string>
+    <string name="register_energy_hint">Ex: 58</string>
+    <string name="register_consumption_value">Valor do consumo</string>
+    <string name="register_observation">OBSERVAÇÃO (OPCIONAL)</string>
+    <string name="register_observation_hint">Ex: Lavagem de roupa, AC ligado...</string>
+    <string name="register_save">Salvar registro</string>
+</resources>
